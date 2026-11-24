@@ -1,0 +1,1 @@
+import {mockRequest} from './protocol.mjs';console.log(JSON.stringify(mockRequest('{"jsonrpc":"2.0","id":1,"method":"tools/list"}','2025-11-25',new Map([['tools/list',{tools:[{name:'lookup',inputSchema:{type:'object'}}]}]])),null,2));
