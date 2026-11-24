@@ -1,0 +1,1 @@
+{"name":"lookup","description":"Synthetic inventory lookup","inputSchema":{"type":"object","properties":{"sku":{"type":"string"}},"required":["sku"]}}
