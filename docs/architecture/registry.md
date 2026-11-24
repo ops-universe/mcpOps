@@ -1,0 +1,3 @@
+# Offline registry and governance
+
+Register JSON inventories explicitly in memory; no installation, command, URL or environment execution configuration accepted. Trust is a declared label only, never authorization. Unknown capabilities are reported as outside the inspector subset, not protocol violations. Trusted local policy explicitly maps server and tool to risk (low/high/deny). Dry run returns allow/review/deny without execution. Argument checking supports only flat primitive properties and rejects unknown schema keywords and undeclared arguments; this is a conservative subset, not general JSON Schema validation. No persistence, approval token or live connection yet.
