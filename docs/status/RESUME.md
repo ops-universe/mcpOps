@@ -1,3 +1,3 @@
 # Resume
 
-Last verified main: c0fa39056624fc0a419dc79047d892ee896bc876. Branch feat/offline-foundation. Verify exact PR head and CI before merging. Commands: npm ci && npm test && npm run demo; website-react npm ci, npm audit --audit-level=high, npm run build. Next: version-specific capability/schema inspection and registry. No untrusted execution.
+Last verified main: cd00da3e2fdd4e930147acc38b0d48b6223f8db9. PR #1 merged, CI 45461355551 passed. Branch feat/registry-governance proposes explicit inventory and restricted dry-run policy. Verify exact head checks and reviews before merging. Run npm ci && npm test && npm run demo; website-react npm ci, npm audit --audit-level=high, npm run build. Next: revision-specific lifecycle validation, CLI, response validation and security findings. No untrusted execution.
