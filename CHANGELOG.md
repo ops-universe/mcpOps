@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
-- PR #1 merged: hardened scaffold, offline inspection, synthetic mock and tests; CI 45461355551 and 45461340105 passed.
-- PR #2 merged: explicit registry, capability inventory and fail-closed dry-run; CI 45494235456 and 45494221111 passed.
-- Proposed response inspection, cancellable bounded fixtures, security heuristics, conservative redaction and stdin CLI.
+- PR #1: hardened scaffold and structural inspection merged.
+- PR #2: registry and governance merged.
+- PR #3: bounded mock, security heuristics and CLI merged; exact-head CI 45515747058 and 45515739823 passed.
+- Proposed local registry persistence, approval simulation and declared permission comparison.

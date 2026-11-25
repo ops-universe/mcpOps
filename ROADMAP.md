@@ -1,11 +1,11 @@
 # Roadmap
 
 - [x] 1 Foundation — PR #1 merged
-- [ ] 2 Protocol validation — common subset and inventory merged; revision-specific lifecycle and schema coverage pending; response inspection proposed
-- [ ] 3 Server registry — in-memory registration merged; persistence and configuration inspection pending
-- [ ] 4 Tool governance — trusted policy and restricted dry-run merged; approval binding pending
-- [ ] 5 Testing harness — mock merged; bounded asynchronous fixtures, timeout/cancellation and response validation proposed
-- [ ] 6 Security inspection — heuristic and redaction subset proposed; permission analysis pending
-- [ ] 7 CLI and dashboard — scaffold merged; offline stdin CLI proposed; dashboard pending
-- [ ] 8 Trusted SDK integration
-- [ ] 9 Release
+- [ ] 2 Protocol validation — common request/response subset merged; revision-specific lifecycle pending
+- [ ] 3 Registry — in-memory merged; local persistence proposed; CLI integration pending
+- [ ] 4 Governance — restricted dry-run merged; single-use approval simulation proposed
+- [ ] 5 Harness — bounded mock, cancellation and timeout merged; expanded revision coverage pending
+- [ ] 6 Security — heuristic scanning and redaction merged; permission comparison proposed
+- [ ] 7 CLI/dashboard — offline CLI merged; dashboard pending
+- [ ] 8 Trusted SDK integration — pending
+- [ ] 9 Release — deferred by owner
