@@ -1,13 +1,13 @@
 # Roadmap
 
-Implementation checkpoint 23323b763c64076cbe6a5aa0c6951b1aeab1e579; CI 45543695056. Documentation main 4c06031536967477195b4da9281d6e1fa38ddd8f; CI 45560696519 passed.
+PR #10 merged at acbf255521df5bbd496abc43d60c32bc65165b1d. Actual post-merge CI 45561172871: core, website and SDK passed; browser harness clone HTTP 403, no browser scenarios executed.
 
 - [x] 1 Foundation.
-- [ ] 2 Protocol — broader bounded response/schema profile proposed; modern response wire evidence still to be checked.
-- [ ] 3 Registry — explicit trusted-root CLI proposed.
-- [ ] 4 Governance — nested closed-world schema and adversarial tests proposed.
+- [ ] 2 Protocol — expanded response/schema merged; actual modern response inspection proposed.
+- [ ] 3 Registry — trusted-root CLI merged; core CI passed; final acceptance pending.
+- [ ] 4 Governance — nested closed-world schema merged; policy/inventory/expiry adversarial regressions proposed.
 - [x] 5 Harness — scoped mock and SDK evidence verified.
-- [ ] 6 Security — adversarial regressions proposed; acceptance pending.
-- [ ] 7 CLI/dashboard — governance and response modes, clear control and storage CLI proposed; browser storage controls pending.
+- [ ] 6 Security — expanded adversarial regressions proposed; acceptance pending.
+- [ ] 7 CLI/dashboard — governance and storage CLI merged; local snapshot controls and locked browser harness fix proposed.
 - [x] 8 Trusted SDK — scoped in-process SDK 2.4.0 verified.
 - [ ] 9 Public release / Developer Preview — deferred.

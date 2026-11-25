@@ -19,3 +19,6 @@ Documentation-only reconciliation must pass its own exact-head checks before mer
 
 ## Proposed remaining acceptance increment
 Nested closed-world schemas, broader response inspection, trusted-directory storage CLI, governance dashboard and regression tests proposed; CI pending. Documentation main 4c06031536967477195b4da9281d6e1fa38ddd8f CI 45560696519 passed. Browser storage controls and modern response wire validation remain to be assessed.
+
+## PR #10 and corrective increment
+PR #10 merged at acbf255521df5bbd496abc43d60c32bc65165b1d. Post-merge CI 45561172871: core, website and SDK passed; browser job failed before testing due to shared harness clone HTTP 403. Proposed local locked runner, actual wire response inspection, explicit untrusted snapshot import/export and approval invalidation tests. No automatic browser persistence, external server compatibility or execution authority. Final acceptance pending exact-head and post-merge CI.

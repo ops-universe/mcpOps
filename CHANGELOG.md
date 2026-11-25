@@ -9,3 +9,6 @@
 
 ## Proposed remaining acceptance increment
 Nested closed-world schemas, broader response inspection, trusted-directory storage CLI, governance dashboard and regression tests proposed; CI pending. Documentation main 4c06031536967477195b4da9281d6e1fa38ddd8f CI 45560696519 passed. Browser storage controls and modern response wire validation remain to be assessed.
+
+- PR #10 merged at acbf2555: expanded schema/response inspection, storage CLI, governance dashboard. Actual main CI 45561172871 failed browser harness clone (HTTP 403); other three jobs passed.
+- Proposed repository-local locked Playwright runner (same pinned dependency versions), actual SDK response inspection, explicit local snapshot import/export and adversarial regressions.
