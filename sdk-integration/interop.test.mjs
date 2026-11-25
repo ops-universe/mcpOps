@@ -1,0 +1,6 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {verifyTrustedSdk,trustedFetch} from './interop.mjs';
+test('explicit authorization required',async()=>assert.rejects(verifyTrustedSdk(),/authorization/));
+test('foreign endpoint and unknown tool denied before handler',async()=>{let called=0;const fetch=trustedFetch({fetch:()=>{called++}},[]);await assert.rejects(fetch('https://example.invalid/mcp',{method:'POST',body:'{}'}),/denied/);await assert.rejects(fetch('http://mcpops.invalid/mcp',{method:'POST',body:JSON.stringify({jsonrpc:'2.0',id:1,method:'tools/call',params:{name:'unknown'}})}),/denied/);assert.equal(called,0)});
+test('real modern SDK discovery, list and call via in-process HTTP', {timeout:20000},async()=>{const v=await verifyTrustedSdk({authorized:true});assert.equal(v.era,'modern');assert.deepEqual(v.tools,['lookup']);assert.equal(v.calls,1);assert.equal(v.result.content[0].text,'available');for(const method of ['server/discover','tools/list','tools/call'])assert.ok(v.evidence.some(e=>e.method===method&&e.status>=200&&e.status<300));assert.ok(v.evidence.filter(e=>e.method!=='server/discover').every(e=>e.inspection));console.log(JSON.stringify({era:v.era,evidence:v.evidence,calls:v.calls}))});

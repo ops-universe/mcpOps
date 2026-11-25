@@ -1,11 +1,11 @@
 # Roadmap
 
 - [x] 1 Foundation — merged
-- [ ] 2 Protocol — legacy transcript and modern request envelope merged; modern response and SDK evidence pending
-- [ ] 3 Registry — persistent local storage merged; CLI integration pending
-- [ ] 4 Governance — bound approval simulation merged; expanded adversarial acceptance pending
-- [ ] 5 Harness — mock merged; trusted SDK interoperability pending
-- [ ] 6 Security — configuration and permission CLI merged; browser acceptance proposed
-- [ ] 7 CLI/dashboard — functional offline dashboard merged; browser acceptance proposed; additional governance and storage controls pending
-- [ ] 8 Trusted SDK integration — pending
+- [ ] 2 Protocol — legacy and modern request subsets merged; SDK exchange proposed; broader response/schema coverage pending
+- [ ] 3 Registry — persistence merged; storage CLI pending
+- [ ] 4 Governance — bound approval simulation merged; adversarial acceptance pending
+- [ ] 5 Harness — mock merged; SDK exchange proposed
+- [ ] 6 Security — browser acceptance merged; additional adversarial tests pending
+- [ ] 7 CLI/dashboard — browser acceptance merged; governance and storage controls pending
+- [ ] 8 Trusted SDK integration — isolated pinned SDK harness proposed, CI pending
 - [ ] 9 Release — deferred

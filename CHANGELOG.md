@@ -1,7 +1,6 @@
 # Changelog
 
 ## Unreleased
-- PRs #1–4 merged: foundation, registry, governance, harness, security, persistence and approval simulation.
-- PR #5 merged: legacy lifecycle and security CLI; CI 45522229413 and 45522220819 passed.
-- PR #6 merged: modern request envelope subset and offline dashboard; CI 45523415477 and 45523408105 passed.
-- Proposed browser acceptance using pinned shared runner and local-only synthetic scenarios.
+- PRs #1–6 merged: foundation, registry, governance, harness, security, persistence, lifecycle and functional dashboard.
+- PR #7 merged: browser acceptance; CI 45525068407 and 45525046609 passed; post-merge CI 45526354749 and 45526285117 passed.
+- Proposed isolated SDK v2 synthetic in-process HTTP acceptance with npm-generated lockfile from workflow 45526368169.
