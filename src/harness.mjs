@@ -8,7 +8,17 @@ export function inspectResponse(raw,request){
  if(result===error)return {ok:false,reason:'ambiguous-response'};
  if(error)return obj(x.error)&&Number.isSafeInteger(x.error.code)&&typeof x.error.message==='string'?{ok:true,outcome:'rpc-error'}:{ok:false,reason:'invalid-error'};
  if(!obj(x.result))return {ok:false,reason:'invalid-result'};
- if(request.method==='server/discover'&&(!obj(x.result.serverInfo)||typeof x.result.serverInfo.name!=='string'||typeof x.result.serverInfo.version!=='string'||!obj(x.result.capabilities)))return {ok:false,reason:'invalid-discovery-result'};
+ const modern=request.method==='server/discover'||request.params?._meta?.['io.modelcontextprotocol/protocolVersion']==='2026-07-28';
+ if(modern){
+  // Scoped complete-result inspection; input_required and other multi-round-trip outcomes are not supported.
+  if(x.result.resultType!=='complete')return {ok:false,reason:'unsupported-modern-result-type'};
+  if(Object.hasOwn(x.result,'_meta')&&!obj(x.result._meta))return {ok:false,reason:'invalid-result-metadata'};
+  // Server identity is optional and self-reported, never a trust signal.
+ }
+ if(request.method==='server/discover'){
+  const d=x.result;
+  if(!obj(d.capabilities)||!Array.isArray(d.supportedVersions)||!d.supportedVersions.length||d.supportedVersions.length>64||!d.supportedVersions.every(v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v))||!d.supportedVersions.includes('2026-07-28')||!['public','private'].includes(d.cacheScope)||!Number.isSafeInteger(d.ttlMs)||d.ttlMs<0)return {ok:false,reason:'invalid-discovery-result'};
+ }
  if(request.method==='tools/list'&&(!Array.isArray(x.result.tools)||x.result.tools.length>256||x.result.tools.some(t=>!inspectTool(JSON.stringify(t)).ok)||new Set(x.result.tools.map(t=>t.name)).size!==x.result.tools.length||(Object.hasOwn(x.result,'nextCursor')&&typeof x.result.nextCursor!=='string')))return {ok:false,reason:'invalid-tool-list'};
  if(request.method==='tools/call'&&(!Array.isArray(x.result.content)||x.result.content.some(t=>!obj(t)||!((t.type==='text'&&typeof t.text==='string')||(['image','audio'].includes(t.type)&&typeof t.mimeType==='string'&&typeof t.data==='string'&&/^[A-Za-z0-9+/]*={0,2}$/.test(t.data)&&t.data.length%4===0)||(t.type==='resource_link'&&typeof t.uri==='string'&&typeof t.name==='string')))||(Object.hasOwn(x.result,'isError')&&typeof x.result.isError!=='boolean')||(Object.hasOwn(x.result,'structuredContent')&&!obj(x.result.structuredContent))))return {ok:false,reason:'invalid-or-unsupported-tool-content'};
  return {ok:true,outcome:'result',scope:'partial-structural'};
