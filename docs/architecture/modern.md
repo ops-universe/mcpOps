@@ -1,0 +1,3 @@
+# Modern request inspection
+
+References: https://ts.sdk.modelcontextprotocol.io/v2/protocol-versions ; https://ts.sdk.modelcontextprotocol.io/v2/migration/support-2026-07-28 ; https://blog.modelcontextprotocol.io/posts/2026-07-28/ . The stateless 2026-07-28 request subset validates the reserved protocolVersion key in params._meta, optional clientInfo and clientCapabilities shapes, and discovery/tools methods. Discovery is optional for clients. No legacy initialization is accepted here. This is not complete wire validation: response metadata, result discrimination, transport headers, multi-round-trip and SDK interoperability remain pending. The offline dashboard calls shared core functions with synthetic or operator-entered data. No network or execution integration.
