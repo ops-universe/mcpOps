@@ -16,3 +16,6 @@ Verified scoped capabilities: offline inspection, private local registry library
 Broader response/schema coverage; storage CLI integration; additional governance/dashboard controls; expanded adversarial acceptance. These remain unchecked, not waived or represented as complete. Scoped tested capabilities accepted; full roadmap closure not established. Developer Preview and public release deferred.
 
 Documentation-only reconciliation must pass its own exact-head checks before merge; this file records implementation evidence, not a future documentation merge SHA.
+
+## Proposed remaining acceptance increment
+Nested closed-world schemas, broader response inspection, trusted-directory storage CLI, governance dashboard and regression tests proposed; CI pending. Documentation main 4c06031536967477195b4da9281d6e1fa38ddd8f CI 45560696519 passed. Browser storage controls and modern response wire validation remain to be assessed.

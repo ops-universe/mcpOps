@@ -6,14 +6,17 @@ import {runFixture} from './harness.mjs';
 import {inspectLegacyTranscript} from './lifecycle.mjs';
 import {inspectPermissions,inspectConfiguration} from './permissions.mjs';
 import {inspectModernRequest} from './modern.mjs';
+import {LocalRegistry} from './storage.mjs';
+import {simulateGovernance,inspectExchange} from './workbench.mjs';
 import {stdin,stdout,stderr} from 'node:process';
 async function read(){let n=0;const chunks=[];for await(const c of stdin){n+=c.length;if(n>65536)throw Error('input limit');chunks.push(c)}return Buffer.concat(chunks).toString('utf8')}
-async function main(){const [cmd,rev,...rest]=process.argv.slice(2);if(rest.length||!['request','tool','inventory','governance','security','redact','test','legacy-transcript','permissions','configuration','modern-request'].includes(cmd))throw Error('Usage: node src/cli.mjs request|tool|inventory|governance|security|redact|test|legacy-transcript|permissions|configuration|modern-request [revision]; JSON on stdin');
+async function main(){const [cmd,rev,...rest]=process.argv.slice(2);if(['storage-register','storage-inspect'].includes(cmd)){if(!rev||rest.length!==(cmd==='storage-inspect'?1:0))throw Error('explicit trusted directory and inspection id required');const store=new LocalRegistry(rev);let v;if(cmd==='storage-register'){const result=await store.register(await read());v=result.ok?{ok:true}:result}else{const registry=await store.load(rest[0]);const item=registry.get(rest[0]);v={ok:true,toolCount:item.tools.length,unsupportedCount:item.unsupported.length}}stdout.write(JSON.stringify(v)+'\n');if(!v.ok)process.exitCode=1;return;}if(rest.length||!['request','tool','inventory','governance','security','redact','test','legacy-transcript','permissions','configuration','modern-request','response'].includes(cmd))throw Error('Usage: node src/cli.mjs request|tool|inventory|governance|security|redact|test|legacy-transcript|permissions|configuration|modern-request [revision]; JSON on stdin');
  if(cmd!=='request'&&rev!==undefined)throw Error('unexpected argument');
  const raw=await read();let out;
  switch(cmd){case 'request':{const v=inspectRequest(raw,rev);out=v.ok?{ok:true,scope:v.scope,revision:v.revision}:v;break}
  case 'tool':out=inspectTool(raw);break;
  case 'inventory':{const v=inspectInventory(raw);out=v.ok?{ok:true,toolCount:v.inventory.tools.length,capabilityCount:v.inventory.capabilities.length,unsupportedCount:v.inventory.unsupported.length}:v;break}
+ case 'response':out=inspectExchange(raw);break;
  case 'modern-request':out=inspectModernRequest(raw);break;
  case 'legacy-transcript':out=inspectLegacyTranscript(raw);break;
  case 'permissions':out=inspectPermissions(raw);break;
