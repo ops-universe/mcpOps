@@ -1,3 +1,3 @@
 # Status
 
-Verified main a7526dfa0f3d59fabaaae789eeb6897282977f84; PR #3 merged, CI 45515747058 and 45515739823 passed. Local registry, approval binding and permission analysis proposed; CI pending. No live compatibility evidence. Release deferred.
+Verified main e972cb6fd1ae926b66402e42f62f6133cf6632f1; PR #4 merged after exact-head CI 45520587812 and 45520576295 passed. Legacy lifecycle subset and security CLI proposed, CI pending. Modern lifecycle and SDK interoperability unverified. Release deferred.
