@@ -1,24 +1,20 @@
-# Engineering acceptance
+# Final scoped engineering acceptance
 
-Implementation checkpoint: 23323b763c64076cbe6a5aa0c6951b1aeab1e579 (PR #8 squash merge).
+Implementation SHA 1539f126256a509431f50d55d6d02c93bcc6b8db; actual post-merge CI https://github.com/ops-universe/mcpOps/actions/runs/45652117947 passed all four jobs. Core 46/46 (job 139339095409), Chromium 6/6 (139339095459), SDK 4/4 (139339095171), website build and base-path checks (139339095485). All dependency audits reported zero vulnerabilities. SDK log confirms modern era, server/discover, tools/list and tools/call each HTTP 200, inspection and responseInspection true, one synthetic invocation. Exact-head PR #11 runs 45651969220 and 45651963168 passed all eight returned checks. Previous browser clone HTTP 403 and discovery validator regression resolved on actual main.
 
-## Verified evidence
-- Post-merge workflow: https://github.com/ops-universe/mcpOps/actions/runs/45543695056 (all four jobs succeeded on the implementation SHA).
-- Core: 37 passed, zero failed; audit zero reported vulnerabilities.
-- Website: build and base-path checks passed; audit zero reported vulnerabilities.
-- Browser: 4 scenarios passed, including keyboard/accessibility, malformed input, stale evidence, heuristic secret redaction and permission denial; shared harness audit zero reported vulnerabilities.
-- SDK: https://github.com/ops-universe/mcpOps/actions/runs/45543695056/job/138968091681 — 3 tests passed, zero failed; SDK audit zero reported vulnerabilities. SDK client/server 2.4.0, npm lockfile from 45526368169. Actual modern SDK server/discover, tools/list and tools/call returned HTTP 200, each request inspection true; exactly one synthetic invocation. Explicit authorization, foreign endpoint and unknown-tool denial passed.
+## Functional acceptance matrix
+- Phase 1: verified scoped complete. Foundation: locked builds, core and website CI, base-path checks.
+- Phase 2: verified scoped complete. Protocol: pinned legacy handshake, modern request and complete-response subsets; malformed, incompatible, duplicate and mismatched responses rejected; bounded nested closed-world schemas.
+- Phase 3: verified scoped complete. Registry: explicit inventory registration, duplicate and execution-config rejection, private trusted-root storage, restart, traversal and unsafe directory CLI regressions.
+- Phase 4: verified scoped complete. Governance: default deny, trusted policy, nested argument validation, high-risk review, bound single-use approvals, expiry, policy/inventory invalidation and cross-ledger rejection.
+- Phase 5: verified scoped complete. Harness: deterministic mock fixtures, malformed responses, timeout, cancellation, isolation and actual synthetic SDK exchange.
+- Phase 6: verified scoped complete. Security: heuristic inspection/redaction, wildcard and undeclared permission denial, inherited-key and schema rejection, unsafe snapshot rejection and dependency audits.
+- Phase 7: verified scoped complete. CLI/dashboard: offline validation, governance simulation, response inspection, persistent registry CLI, explicit untrusted snapshot import/export, evidence clearing, keyboard and accessibility browser acceptance; locked local browser runner.
+- Phase 8: verified scoped complete. Trusted SDK: pinned 2.4.0 client/server, explicit authorization, actual discovery/list/call request and response inspection, ID correlation, foreign endpoint and unknown-tool denial.
 
-## Acceptance boundary
-Verified scoped capabilities: offline inspection, private local registry library, approval simulation, mock harness, heuristic security and declared permission checks, offline browser/CLI, and fixed synthetic SDK interoperability. In-process HTTP only, no network sockets, no arbitrary MCP configuration or subprocess execution. Trusted local account/parent directory assumptions remain. No actual OS permission verification, durable authorization, external server compatibility, full protocol conformance or third-party security certification. Audits are point-in-time dependency evidence.
+All four formerly outstanding roadmap areas have implementation and test evidence. No known outstanding documented scoped functional criteria. This records the implementation checkpoint, not the future documentation merge SHA. Documentation-only PR must pass its own CI before merge.
 
-## Outstanding documented criteria
-Broader response/schema coverage; storage CLI integration; additional governance/dashboard controls; expanded adversarial acceptance. These remain unchecked, not waived or represented as complete. Scoped tested capabilities accepted; full roadmap closure not established. Developer Preview and public release deferred.
+## Limitations
+Trusted local account and parent directory; offline inspector and explicit synthetic snapshots, no automatic browser persistence; approvals are simulation-only, permissions declarative and security findings heuristic. Bounded closed-world schema profile, supported protocol subsets and complete-result responses only; no full MCP conformance, arbitrary server execution, external network or third-party interoperability. SDK 2.4.0 fixed synthetic in-process HTTP only. Dependency audits are point-in-time evidence, not security certification. Developer Preview and public release deferred.
 
-Documentation-only reconciliation must pass its own exact-head checks before merge; this file records implementation evidence, not a future documentation merge SHA.
-
-## Proposed remaining acceptance increment
-Nested closed-world schemas, broader response inspection, trusted-directory storage CLI, governance dashboard and regression tests proposed; CI pending. Documentation main 4c06031536967477195b4da9281d6e1fa38ddd8f CI 45560696519 passed. Browser storage controls and modern response wire validation remain to be assessed.
-
-## PR #10 and corrective increment
-PR #10 merged at acbf255521df5bbd496abc43d60c32bc65165b1d. Post-merge CI 45561172871: core, website and SDK passed; browser job failed before testing due to shared harness clone HTTP 403. Proposed local locked runner, actual wire response inspection, explicit untrusted snapshot import/export and approval invalidation tests. No automatic browser persistence, external server compatibility or execution authority. Final acceptance pending exact-head and post-merge CI.
+CI emitted a transitive Node url.parse deprecation warning during browser artifact handling; no failure or reported dependency vulnerability. This is not a claim of production readiness.
