@@ -1,3 +1,3 @@
 # Status
 
-Verified main e972cb6fd1ae926b66402e42f62f6133cf6632f1; PR #4 merged after exact-head CI 45520587812 and 45520576295 passed. Legacy lifecycle subset and security CLI proposed, CI pending. Modern lifecycle and SDK interoperability unverified. Release deferred.
+Verified main 8b44c28c3422e22706f05825d7f3f658e41aecdf; PR #5 merged with exact-head CI 45522229413 and 45522220819. Modern request envelope and offline dashboard proposed; CI pending. No SDK interoperability or full protocol compatibility claim. Release deferred.
