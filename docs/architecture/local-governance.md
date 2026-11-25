@@ -1,0 +1,3 @@
+# Local governance
+
+LocalRegistry uses a trusted operator-selected private directory on POSIX, exclusive file creation and non-overwriting atomic publication; assumes trusted parent directories and a single local account. Inventory files contain raw descriptor data and must not contain secrets. No automatic installation or command execution. ApprovalLedger is an in-memory single-use dry-run simulation, bound to exact request bytes, normalized inventory and relevant risk policy; it is not an execution grant or durable authentication mechanism. Permission comparison uses operator-defined exact strings, rejects wildcard requests, and does not establish real OS/network privileges. Configuration inspection is heuristic only. These APIs are not yet wired into CLI/dashboard.
