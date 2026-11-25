@@ -37,3 +37,58 @@ jobs:
           test -f dist/index.html
           VITE_BASE_PATH=/mcpOps/ npm run build
           grep -q '/mcpOps/assets/' dist/index.html
+
+  browser-acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+        working-directory: website-react
+      - run: VITE_BASE_PATH=/mcpOps/ npm run build
+        working-directory: website-react
+      - name: Install pinned shared browser test harness
+        run: |
+          git clone https://github.com/ops-universe/ops-ui.git "$RUNNER_TEMP/mcpops-browser-harness"
+          cd "$RUNNER_TEMP/mcpops-browser-harness"
+          git checkout --detach 0fe0ecddb374d64badcafe897fef85f6a0eacf78
+          npm ci
+          npm audit --audit-level=high
+          npx playwright install --with-deps chromium
+      - name: Run browser and accessibility acceptance
+        run: |
+          VITE_BASE_PATH=/mcpOps/ npm --prefix website-react run preview -- --host 127.0.0.1 --port 4173 --strictPort > "$RUNNER_TEMP/mcpops-preview.log" 2>&1 &
+          PID=$!
+          trap 'kill "$PID" || true' EXIT
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/mcpOps/ >/dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4173/mcpOps/ >/dev/null
+          curl --fail --silent http://127.0.0.1:4173/mcpOps/ > "$RUNNER_TEMP/mcpops-served.html"
+          grep -q '/mcpOps/assets/' "$RUNNER_TEMP/mcpops-served.html"
+          ASSET=$(grep -oE 'src="/mcpOps/assets/[^"]+\.js"' "$RUNNER_TEMP/mcpops-served.html" | head -1 | cut -d '"' -f2)
+          test -n "$ASSET"
+          curl --fail --silent --dump-header "$RUNNER_TEMP/mcpops-asset.headers" "http://127.0.0.1:4173$ASSET" -o "$RUNNER_TEMP/mcpops-asset.js"
+          grep -qiE 'content-type: (application|text)/javascript' "$RUNNER_TEMP/mcpops-asset.headers"
+          cp browser/acceptance.spec.mjs browser/playwright.config.mjs "$RUNNER_TEMP/mcpops-browser-harness/"
+          cd "$RUNNER_TEMP/mcpops-browser-harness"
+          MCPOPS_TEST_URL=http://127.0.0.1:4173/mcpOps/ npx playwright test --config playwright.config.mjs
+
+      - name: Retain browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcpops-browser-diagnostics
+          path: |
+            ${{ runner.temp }}/mcpops-browser-harness/test-results
+            ${{ runner.temp }}/mcpops-preview.log
+            ${{ runner.temp }}/mcpops-served.html
+            ${{ runner.temp }}/mcpops-asset.headers
+          if-no-files-found: warn
+          retention-days: 7
